@@ -1,5 +1,5 @@
 # Use the official Windows-based Node.js 14 image
-FROM mcr.microsoft.com/windows/nanoserver:1809 AS build
+FROM mcr.microsoft.com/windows/servercore:ltsc2019 AS build
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 # Use a Windows-based Nginx image for serving static content
-FROM mcr.microsoft.com/windows/nanoserver:1809
+FROM mcr.microsoft.com/windows/servercore:ltsc2019
 
 # Create directory for the HTML files
 RUN mkdir C:\nginx\html
