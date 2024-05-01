@@ -1,5 +1,5 @@
-# Use the official lightweight Node.js 14 image
-FROM node:14-alpine as build
+# Use the official Windows-based Node.js 14 image
+FROM mcr.microsoft.com/windows/nanoserver:1809 AS build
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -16,11 +16,14 @@ COPY . .
 # Build the React app
 RUN npm run build
 
-# Use a lightweight Nginx image for serving static content
-FROM nginx:alpine
+# Use a Windows-based Nginx image for serving static content
+FROM mcr.microsoft.com/windows/nanoserver:1809
 
-# Copy the built app from the previous stage
-COPY --from=build /app/build /usr/share/nginx/html
+# Create directory for the HTML files
+RUN mkdir C:\nginx\html
+
+# Copy the built app from the previous stage to the Nginx HTML directory
+COPY --from=build /app/build /nginx/html
 
 # Expose port 80
 EXPOSE 80
