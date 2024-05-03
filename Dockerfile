@@ -19,6 +19,9 @@ RUN npm run build
 # Use a multi-arch Nginx image for broader compatibility
 FROM nginx:latest
 
+# Grant write permissions to the nginx user
+RUN chown -R nginx:nginx /usr/share/nginx
+
 # Create directory for HTML files
 RUN mkdir /usr/share/nginx/html
 
