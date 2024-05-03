@@ -28,6 +28,9 @@ RUN mkdir /usr/share/nginx/html
 # Copy the built app from the build stage to the Nginx HTML directory
 COPY --from=build /app/build /usr/share/nginx/html
 
+# Copy custom index.html file (with modifications)
+COPY index.html /usr/share/nginx/html
+
 # Expose port 80
 EXPOSE 80
 
