@@ -22,8 +22,12 @@ FROM nginx:latest
 # Grant write permissions to the nginx user
 RUN chown -R nginx:nginx /usr/share/nginx
 
-# Create directory for HTML files
-RUN mkdir /usr/share/nginx/html
+# Create directory for HTML files if it doesn't exist
+RUN mkdir -p /usr/share/nginx/html
+
+# Copy the built app from the build stage to the Nginx HTML directory if the index.html file doesn't exist
+RUN [ -f /usr/share/nginx/html/index.html ] || cp /app/build/index.html /usr/share/nginx/html
+
 
 # Copy the built app from the build stage to the Nginx HTML directory
 COPY --from=build /app/build /usr/share/nginx/html
