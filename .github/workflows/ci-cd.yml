@@ -33,5 +33,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}   # Remove ":main" from the tag
+          tags: akanksha91/react:v1.0   # Remove ":main" from the tag
           labels: ${{ steps.meta.outputs.labels }}
